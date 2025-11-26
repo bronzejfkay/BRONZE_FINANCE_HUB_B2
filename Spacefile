@@ -1,0 +1,8 @@
+app = "bronze_finance_hub"
+
+[build]
+runtime = "python3.10"
+command = "pip install -r requirements.txt"
+
+[start]
+command = "python -m app.main"
