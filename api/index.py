@@ -3,8 +3,9 @@ from supabase import create_client
 
 app = FastAPI()
 
-SUPABASE_URL = "https://qoxfruvulqkfzoqmacqm.supabase.co"
-SUPABASE_KEY = "sb_publishable_RJEagNzkaXGPb-zA0_C9ug_aZDbJzSH"
+# 🔑 Replace with YOUR keys
+SUPABASE_URL = "YOUR_URL"
+SUPABASE_KEY = "YOUR_KEY"
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
@@ -14,16 +15,16 @@ def home():
 
 @app.get("/api/finance/summary")
 def finance_summary(user_id: str):
-    response = supabase.table("finances").select("*").eq("user_id", user_id).execute()
+    data = supabase.table("finances").select("*").eq("user_id", user_id).execute()
 
     income = 0
     expense = 0
 
-    for item in response.data:
+    for item in data.data:
         if item["type"] == "income":
-            income += float(item["amount"])
+            income += item["amount"]
         else:
-            expense += float(item["amount"])
+            expense += item["amount"]
 
     return {
         "income": income,
